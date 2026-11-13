@@ -34,9 +34,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
     } elseif (mb_strlen($form['email']) > 100) {
         $errors['email'] = 'Email maksimal 100 karakter.';
     } else {
-        $stmt = $pdo->prepare('SELECT id FROM pengguna WHERE email = :email LIMIT 1');
-        $stmt->execute([':email' => $form['email']]);
-        if ($stmt->fetch()) {
+        if (store_user_by_email($form['email']) !== null) {
             $errors['email'] = 'Email sudah terdaftar.';
         }
     }
@@ -59,27 +57,15 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
     }
 
     if ($errors === []) {
-        try {
-            $stmt = $pdo->prepare(
-                'INSERT INTO pengguna (email, name, password, teams)
-                 VALUES (:email, :name, :password, :teams)'
-            );
-            $stmt->execute([
-                ':email'    => $form['email'],
-                ':name'     => $form['name'],
-                ':password' => password_hash($password, PASSWORD_DEFAULT),
-                ':teams'    => $form['teams'],
-            ]);
+        store_create_user([
+            'email'    => $form['email'],
+            'name'     => $form['name'],
+            'password' => password_hash($password, PASSWORD_DEFAULT),
+            'teams'    => $form['teams'],
+        ]);
 
-            flash('success', 'Akun dibuat. Masuk dengan email dan password barumu.');
-            redirect('login.php');
-        } catch (PDOException $e) {
-            if ($e->getCode() === '23000') {
-                $errors['email'] = 'Email sudah terdaftar.';
-            } else {
-                throw $e;
-            }
-        }
+        flash('success', 'Akun dibuat. Masuk dengan email dan password barumu.');
+        redirect('login.php');
     }
 }
 

@@ -15,9 +15,7 @@ if ($id <= 0) {
     abort_page(400, 'Permintaan tidak valid', 'Laporan yang dimaksud tidak ditemukan.');
 }
 
-$stmt = $pdo->prepare('SELECT * FROM laporan WHERE id = :id LIMIT 1');
-$stmt->execute([':id' => $id]);
-$report = $stmt->fetch();
+$report = store_report($id);
 
 if (!$report) {
     abort_page(404, 'Laporan tidak ditemukan', 'Laporan yang kamu cari sudah dihapus.');
@@ -36,12 +34,7 @@ if (!isset($allowed[$status])) {
     );
 }
 
-$update = $pdo->prepare('UPDATE laporan SET status = :status WHERE id = :id AND pengguna_id = :pengguna_id');
-$update->execute([
-    ':status' => $status,
-    ':id' => (int) $report['id'],
-    ':pengguna_id' => (int) current_user()['id'],
-]);
+store_update_report((int) $report['id'], ['status' => $status]);
 
 flash('success', 'Status laporan diubah menjadi ' . status_label($status) . '.');
 

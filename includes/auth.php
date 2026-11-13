@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../config/data.php';
 require_once __DIR__ . '/functions.php';
 
 /** ------------------------------------------------------------------
@@ -36,16 +36,14 @@ function current_user(): ?array
         return null;
     }
 
-    global $pdo;
-    $stmt = $pdo->prepare('SELECT id, email, name, teams, created_at FROM pengguna WHERE id = :id');
-    $stmt->execute([':id' => $id]);
-    $row = $stmt->fetch();
+    $row = store_user($id);
 
-    if (!$row) {
+    if ($row === null) {
         unset($_SESSION['user_id']);
         return null;
     }
 
+    unset($row['password']);
     $user = $row;
     return $user;
 }

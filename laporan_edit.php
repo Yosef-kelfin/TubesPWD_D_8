@@ -5,9 +5,7 @@ require_once __DIR__ . '/includes/auth.php';
 require_login();
 
 $id = (int) get('id');
-$stmt = $pdo->prepare('SELECT * FROM laporan WHERE id = :id LIMIT 1');
-$stmt->execute([':id' => $id]);
-$report = $stmt->fetch();
+$report = store_report($id);
 
 if (!$report) {
     abort_page(404, 'Laporan tidak ditemukan', 'Laporan yang kamu cari sudah dihapus atau tidak pernah ada.');
@@ -53,46 +51,24 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
             ? (string) $report['status']
             : default_status($form['type']);
 
-        try {
-            $update = $pdo->prepare(
-                'UPDATE laporan SET
-                    type = :type,
-                    title = :title,
-                    category = :category,
-                    location = :location,
-                    date = :date,
-                    description = :description,
-                    image = :image,
-                    storage_location = :storage_location,
-                    status = :status
-                 WHERE id = :id AND pengguna_id = :pengguna_id'
-            );
-            $update->execute([
-                ':type'             => $form['type'],
-                ':title'            => $form['title'],
-                ':category'         => $form['category'],
-                ':location'         => $form['location'],
-                ':date'             => $form['date'],
-                ':description'      => $form['description'] !== '' ? $form['description'] : null,
-                ':image'            => $finalImage,
-                ':storage_location' => $form['type'] === 'ditemukan' ? $form['storage_location'] : null,
-                ':status'           => $newStatus,
-                ':id'               => (int) $report['id'],
-                ':pengguna_id'      => (int) current_user()['id'],
-            ]);
+        store_update_report((int) $report['id'], [
+            'type'             => $form['type'],
+            'title'            => $form['title'],
+            'category'         => $form['category'],
+            'location'         => $form['location'],
+            'date'             => $form['date'],
+            'description'      => $form['description'] !== '' ? $form['description'] : null,
+            'image'            => $finalImage,
+            'storage_location' => $form['type'] === 'ditemukan' ? $form['storage_location'] : null,
+            'status'           => $newStatus,
+        ]);
 
-            if ($oldImage !== '' && ($newImage !== null || $removeOld)) {
-                delete_photo($oldImage);
-            }
-
-            flash('success', 'Perubahan laporan disimpan.');
-            redirect('laporan_detail.php?id=' . (int) $report['id']);
-        } catch (PDOException $e) {
-            if ($newImage !== null) {
-                delete_photo($newImage);
-            }
-            $errors['form'] = 'Perubahan gagal disimpan. Coba lagi sebentar lagi.';
+        if ($oldImage !== '' && ($newImage !== null || $removeOld)) {
+            delete_photo($oldImage);
         }
+
+        flash('success', 'Perubahan laporan disimpan.');
+        redirect('laporan_detail.php?id=' . (int) $report['id']);
     }
 }
 

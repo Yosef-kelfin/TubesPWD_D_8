@@ -14,9 +14,7 @@ $identity = [
 $identityErrors = [];
 $passwordErrors = [];
 
-$countStmt = $pdo->prepare('SELECT COUNT(*) FROM laporan WHERE pengguna_id = :pengguna_id');
-$countStmt->execute([':pengguna_id' => $userId]);
-$reportCount = (int) $countStmt->fetchColumn();
+$reportCount = store_count_reports([], $userId);
 
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
     csrf_protect();
@@ -40,11 +38,9 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
         }
 
         if ($identityErrors === []) {
-            $update = $pdo->prepare('UPDATE pengguna SET name = :name, teams = :teams WHERE id = :id');
-            $update->execute([
-                ':name'  => $identity['name'],
-                ':teams' => $identity['teams'],
-                ':id'    => $userId,
+            store_update_user($userId, [
+                'name'  => $identity['name'],
+                'teams' => $identity['teams'],
             ]);
 
             flash('success', 'Profil diperbarui.');
@@ -61,9 +57,8 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
             ? $_POST['confirm_password']
             : '';
 
-        $pwStmt = $pdo->prepare('SELECT password FROM pengguna WHERE id = :id LIMIT 1');
-        $pwStmt->execute([':id' => $userId]);
-        $currentHash = (string) $pwStmt->fetchColumn();
+        $currentUser  = store_user($userId);
+        $currentHash  = (string) ($currentUser['password'] ?? '');
 
         if ($currentPassword === '' || !password_verify($currentPassword, $currentHash)) {
             $passwordErrors['current_password'] = 'Password saat ini tidak cocok.';
@@ -78,10 +73,8 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
         }
 
         if ($passwordErrors === []) {
-            $update = $pdo->prepare('UPDATE pengguna SET password = :password WHERE id = :id');
-            $update->execute([
-                ':password' => password_hash($newPassword, PASSWORD_DEFAULT),
-                ':id'       => $userId,
+            store_update_user($userId, [
+                'password' => password_hash($newPassword, PASSWORD_DEFAULT),
             ]);
 
             flash('success', 'Password diganti. Gunakan password baru saat masuk berikutnya.');

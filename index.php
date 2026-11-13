@@ -22,61 +22,24 @@ if (!isset(ALL_STATUSES[$status])) {
     $status = '';
 }
 
-/* ---------- WHERE dinamis dengan prepared statement ---------- */
-$where = [];
-$params = [];
+/* ---------- Filter laporan ---------- */
+$filters = [
+    'q'        => $q,
+    'kategori' => $kategori,
+    'jenis'    => $jenis,
+    'status'   => $status,
+    'lokasi'   => $lokasi,
+];
 
-if ($q !== '') {
-    $where[] = '(l.title LIKE :q_title OR l.description LIKE :q_description)';
-    $params[':q_title'] = '%' . $q . '%';
-    $params[':q_description'] = '%' . $q . '%';
-}
-if ($kategori !== '') {
-    $where[] = 'l.category = :kategori';
-    $params[':kategori'] = $kategori;
-}
-if ($jenis !== '') {
-    $where[] = 'l.type = :jenis';
-    $params[':jenis'] = $jenis;
-}
-if ($status !== '') {
-    $where[] = 'l.status = :status';
-    $params[':status'] = $status;
-}
-if ($lokasi !== '') {
-    $where[] = 'l.location LIKE :lokasi';
-    $params[':lokasi'] = '%' . $lokasi . '%';
-}
-
-$whereSql = $where === [] ? '' : ' WHERE ' . implode(' AND ', $where);
-
-$countStmt = $pdo->prepare('SELECT COUNT(*) FROM laporan l' . $whereSql);
-$countStmt->execute($params);
-$total = (int) $countStmt->fetchColumn();
-
+$total      = store_count_reports($filters);
 $totalPages = max(1, (int) ceil($total / PAGE_SIZE));
-$page = min($page, $totalPages);
-$offset = ($page - 1) * PAGE_SIZE;
-
-$listStmt = $pdo->prepare(
-    'SELECT l.* FROM laporan l' . $whereSql
-    . ' ORDER BY l.created_at DESC, l.id DESC LIMIT :limit OFFSET :offset'
-);
-foreach ($params as $key => $value) {
-    $listStmt->bindValue($key, $value);
-}
-$listStmt->bindValue(':limit', PAGE_SIZE, PDO::PARAM_INT);
-$listStmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-$listStmt->execute();
-$reports = $listStmt->fetchAll();
+$page       = min($page, $totalPages);
+$offset     = ($page - 1) * PAGE_SIZE;
+$reports    = store_reports_for($filters, null, PAGE_SIZE, $offset);
 
 /* ---------- Statistik ringkas ---------- */
-$stats = $pdo->query(
-    "SELECT COUNT(*) AS total,
-            COALESCE(SUM(status = 'belum_dikembalikan'), 0) AS pending
-     FROM laporan"
-)->fetch();
-$totalAll = (int) ($stats['total'] ?? 0);
+$stats        = store_stats();
+$totalAll     = (int) ($stats['total'] ?? 0);
 $pendingFound = (int) ($stats['pending'] ?? 0);
 
 /* ---------- Data untuk tautan ---------- */

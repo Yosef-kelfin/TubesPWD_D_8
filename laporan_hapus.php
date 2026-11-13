@@ -15,9 +15,7 @@ if ($id <= 0) {
     abort_page(400, 'Permintaan tidak valid', 'Laporan yang dimaksud tidak ditemukan.');
 }
 
-$stmt = $pdo->prepare('SELECT * FROM laporan WHERE id = :id LIMIT 1');
-$stmt->execute([':id' => $id]);
-$report = $stmt->fetch();
+$report = store_report($id);
 
 if (!$report) {
     abort_page(404, 'Laporan tidak ditemukan', 'Laporan yang kamu cari sudah dihapus.');
@@ -25,13 +23,9 @@ if (!$report) {
 
 require_owner($report);
 
-$delete = $pdo->prepare('DELETE FROM laporan WHERE id = :id AND pengguna_id = :pengguna_id');
-$delete->execute([
-    ':id'          => (int) $report['id'],
-    ':pengguna_id' => (int) current_user()['id'],
-]);
+$deleted = store_delete_report((int) $report['id']);
 
-if ($delete->rowCount() > 0) {
+if ($deleted) {
     delete_photo((string) ($report['image'] ?? ''));
     flash('success', 'Laporan dihapus dari papan temuan.');
 } else {

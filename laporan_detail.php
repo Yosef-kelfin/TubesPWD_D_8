@@ -8,16 +8,7 @@ if ($id <= 0) {
     abort_page(404, 'Laporan tidak ditemukan', 'Alamat laporan tidak valid.');
 }
 
-$stmt = $pdo->prepare(
-    'SELECT l.*, p.name AS owner_name, p.email AS owner_email, p.teams AS owner_teams
-     FROM laporan l
-     JOIN pengguna p ON p.id = l.pengguna_id
-     WHERE l.id = :id
-     LIMIT 1'
-);
-
-$stmt->execute([':id' => $id]);
-$report = $stmt->fetch();
+$report = store_report_with_owner($id);
 
 if (!$report) {
     abort_page(404, 'Laporan tidak ditemukan', 'Laporan yang kamu cari sudah dihapus atau tidak pernah ada.');

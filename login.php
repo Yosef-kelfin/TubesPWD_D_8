@@ -23,11 +23,9 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors['login'] = 'Email atau password salah.';
     } else {
-        $stmt = $pdo->prepare('SELECT id, email, name, teams, password, created_at FROM pengguna WHERE email = :email LIMIT 1');
-        $stmt->execute([':email' => $email]);
-        $user = $stmt->fetch();
+        $user = store_user_by_email($email);
 
-        if ($user && password_verify($password, (string) $user['password'])) {
+        if ($user !== null && password_verify($password, (string) $user['password'])) {
             login_user($user);
             flash('success', 'Selamat datang kembali, ' . $user['name'] . '.');
             redirect(safe_next_url($next));

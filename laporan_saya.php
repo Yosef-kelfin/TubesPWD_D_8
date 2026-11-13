@@ -13,44 +13,16 @@ if (!isset(REPORT_TYPES[$jenis])) {
 }
 $page = max(1, (int) get('page', '1'));
 
-$statsStmt = $pdo->prepare(
-    "SELECT COUNT(*) AS total,
-            COALESCE(SUM(type = 'hilang'), 0) AS hilang,
-            COALESCE(SUM(type = 'ditemukan'), 0) AS ditemukan,
-            COALESCE(SUM(status IN ('sudah_ditemukan', 'sudah_dikembalikan')), 0) AS selesai
-     FROM laporan
-     WHERE pengguna_id = :pengguna_id"
-);
-$statsStmt->execute([':pengguna_id' => $userId]);
-$stats = $statsStmt->fetch();
+$stats = store_stats($userId);
 
-$where  = ' WHERE l.pengguna_id = :pengguna_id';
-$params = [':pengguna_id' => $userId];
-
-if ($jenis !== '') {
-    $where .= ' AND l.type = :jenis';
-    $params[':jenis'] = $jenis;
-}
-
-$countStmt = $pdo->prepare('SELECT COUNT(*) FROM laporan l' . $where);
-$countStmt->execute($params);
-$total = (int) $countStmt->fetchColumn();
+$filters = $jenis !== '' ? ['jenis' => $jenis] : [];
+$total   = store_count_reports($filters, $userId);
 
 $totalPages = max(1, (int) ceil($total / PAGE_SIZE));
 $page       = min($page, $totalPages);
 $offset     = ($page - 1) * PAGE_SIZE;
 
-$listStmt = $pdo->prepare(
-    'SELECT l.* FROM laporan l' . $where
-    . ' ORDER BY l.created_at DESC, l.id DESC LIMIT :limit OFFSET :offset'
-);
-foreach ($params as $key => $value) {
-    $listStmt->bindValue($key, $value);
-}
-$listStmt->bindValue(':limit', PAGE_SIZE, PDO::PARAM_INT);
-$listStmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-$listStmt->execute();
-$reports = $listStmt->fetchAll();
+$reports = store_reports_for($filters, $userId, PAGE_SIZE, $offset);
 
 $pageUrl = static function (int $number) use ($jenis): string {
     return 'laporan_saya.php' . query_string([

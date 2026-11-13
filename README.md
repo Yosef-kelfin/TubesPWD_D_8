@@ -1,18 +1,17 @@
 # FindIt
 
-Papan temuan kampus untuk melaporkan barang hilang dan barang ditemukan. Dibuat 100% native: XHTML, CSS, Vanilla JavaScript, PHP native, MySQL via PDO. Tanpa framework, library, atau CDN.
+Papan temuan kampus untuk melaporkan barang hilang dan barang ditemukan. Dibuat 100% native: XHTML, CSS, Vanilla JavaScript, PHP native. Versi ini **front-end only**: tidak memakai MySQL, data demo disimpan di `data/findit.json` (tanpa framework, library, atau CDN).
 
 ## Menjalankan
 
-1. Pastikan Apache dan MySQL XAMPP berjalan.
+1. Pastikan Apache XAMPP berjalan (MySQL **tidak** diperlukan).
 2. Proyek sudah berada di `D:\XAMPP\htdocs\findit`.
-3. Impor database demo:
-   - phpMyAdmin: pilih tab **Import**, jalankan `database/findit.sql`.
-   - atau CLI: `D:\XAMPP\mysql\bin\mysql -u root < database\findit.sql`
-4. Periksa koneksi di `config/database.php` bila user/password MySQL berbeda.
-5. Buka `http://localhost/findit/`.
+3. Buka `http://localhost/findit/`.
+4. Data demo dibuat otomatis saat halaman pertama dibuka.
 
-`database/findit.sql` berisi skema `pengguna` + `laporan` dan 10 laporan demo. Impor ulang file itu kapan saja untuk mengembalikan data demo.
+Untuk mengembalikan data demo ke kondisi awal, hapus file `data/findit.json` lalu muat ulang halaman.
+
+Versi lengkap dengan MySQL tersedia di folder `findit_w_db` (di luar folder ini).
 
 ## Akun demo
 
@@ -37,7 +36,7 @@ Papan temuan kampus untuk melaporkan barang hilang dan barang ditemukan. Dibuat 
 ## Struktur
 
 ```
-config/database.php          koneksi PDO
+config/data.php              penyimpanan data demo (JSON)
 includes/auth.php            sesi, login, cek pemilik
 includes/csrf.php            token CSRF
 includes/functions.php       helper, validasi, upload, label
@@ -49,7 +48,7 @@ assets/css/style.css
 assets/js/app.js
 assets/img/                  placeholder + empty state
 uploads/                     foto laporan + .htaccess
-database/findit.sql          skema + data demo
+data/findit.json             data demo (dibuat otomatis)
 index.php                    beranda, pencarian, filter
 register.php login.php logout.php profil.php
 laporan_buat.php laporan_edit.php laporan_detail.php
@@ -59,6 +58,6 @@ laporan_saya.php laporan_hapus.php laporan_status.php
 ## Catatan teknis
 
 - Markup ditulis well-formed sesuai aturan XHTML. Halaman dikirim sebagai `text/html` (fallback yang diizinkan PRD); ubah `APP_CONTENT_TYPE` di `includes/functions.php` menjadi `application/xhtml+xml` bila ingin mode ketat.
-- Semua query memakai prepared statement PDO, output di-escape dengan `htmlspecialchars()`, form POST memakai token CSRF, dan kepemilikan laporan dicek di server.
+- Data demo disimpan sebagai JSON di `data/findit.json` (di-seed otomatis dari `config/data.php`); folder `data/` diblokir dari akses browser lewat `.htaccess`. Semua output di-escape dengan `htmlspecialchars()`, form POST memakai token CSRF, dan kepemilikan laporan dicek di server.
 - Upload divalidasi MIME asli (`finfo`), ekstensi, ukuran maksimal 2 MB, nama file acak, serta folder `uploads/` diblokir dari eksekusi skrip.
-- Database hanya berisi tabel `pengguna` dan `laporan`. Tabel lama `users` dan `items` sudah dihapus karena tidak dipakai.
+- Login tetap memakai `password_hash()` / `password_verify()`, jadi akun demo dan akun hasil registrasi bisa dipakai seperti biasa tanpa MySQL.
