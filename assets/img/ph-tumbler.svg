@@ -1,18 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Ilustrasi pengganti foto: tumbler">
-    <defs>
-        <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
-            <circle cx="1.5" cy="1.5" r="1.5" fill="#d9dcd5" />
-        </pattern>
-    </defs>
-    <rect width="800" height="600" fill="#e9ebe5" />
-    <rect width="800" height="600" fill="url(#dots)" />
-    <g fill="none" stroke="#12161a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <rect width="800" height="600" fill="#F0F5FC" />
+    <g fill="none" stroke="#94A3B8" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
         <rect x="334" y="204" width="132" height="196" rx="14" />
         <rect x="318" y="170" width="164" height="28" rx="8" />
         <path d="M418 170 L418 138 L452 138" />
         <path d="M360 240 L360 356" />
     </g>
-    <rect x="0" y="548" width="800" height="52" fill="#f6c90e" />
-    <text x="28" y="581" font-family="Bahnschrift, 'Segoe UI', sans-serif" font-size="19" font-weight="600" letter-spacing="1.6" fill="#12161a">FOTO BELUM ADA</text>
-    <text x="772" y="581" text-anchor="end" font-family="Bahnschrift, 'Segoe UI', sans-serif" font-size="19" font-weight="600" letter-spacing="1.6" fill="#12161a">TUMBLER</text>
 </svg>

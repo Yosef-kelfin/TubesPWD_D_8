@@ -181,7 +181,7 @@ require __DIR__ . '/includes/header.php';
                     <?php endif; ?>
                 </div>
 
-                <button class="btn btn--ink" type="submit">Ganti password</button>
+                <button class="btn btn--signal" type="submit">Ganti password</button>
             </form>
         </section>
     </div>

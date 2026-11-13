@@ -156,7 +156,7 @@ require __DIR__ . '/includes/header.php';
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <button class="btn btn--ink btn--sm" type="submit">Simpan status</button>
+                    <button class="btn btn--signal btn--sm" type="submit">Simpan status</button>
                 </form>
 
                 <div class="owner-links">

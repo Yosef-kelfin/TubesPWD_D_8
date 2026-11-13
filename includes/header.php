@@ -36,8 +36,15 @@ $nav_items = [
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0B5CA8" />
     <title><?= $page_title !== '' ? e($page_title) . ' · ' . e(APP_NAME) : e(APP_NAME) . ' — ' . e(APP_TAGLINE) ?></title>
     <meta name="description" content="Papan temuan kampus FindIt!: laporan barang hilang dan ditemukan di lingkungan kampus." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin" />
+    <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
+    />
     <link rel="stylesheet" href="<?= e(asset('assets/css/style.css')) ?>" />
 </head>
 <body class="<?= e($body_class) ?>">
@@ -102,3 +109,4 @@ $nav_items = [
             <?php endforeach; ?>
         </div>
     <?php endif; ?>
+ ?>

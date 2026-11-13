@@ -1,19 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Ilustrasi pengganti foto: dompet atau kartu">
-    <defs>
-        <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
-            <circle cx="1.5" cy="1.5" r="1.5" fill="#d9dcd5" />
-        </pattern>
-    </defs>
-    <rect width="800" height="600" fill="#e9ebe5" />
-    <rect width="800" height="600" fill="url(#dots)" />
-    <g fill="none" stroke="#12161a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <rect width="800" height="600" fill="#F0F5FC" />
+    <g fill="none" stroke="#94A3B8" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
         <rect x="300" y="206" width="200" height="142" rx="14" />
         <path d="M300 246 L500 246" />
         <rect x="424" y="266" width="76" height="42" rx="7" />
         <circle cx="462" cy="287" r="6" />
         <path d="M330 300 L390 300" />
     </g>
-    <rect x="0" y="548" width="800" height="52" fill="#f6c90e" />
-    <text x="28" y="581" font-family="Bahnschrift, 'Segoe UI', sans-serif" font-size="19" font-weight="600" letter-spacing="1.6" fill="#12161a">FOTO BELUM ADA</text>
-    <text x="772" y="581" text-anchor="end" font-family="Bahnschrift, 'Segoe UI', sans-serif" font-size="19" font-weight="600" letter-spacing="1.6" fill="#12161a">DOMPET/KARTU</text>
 </svg>

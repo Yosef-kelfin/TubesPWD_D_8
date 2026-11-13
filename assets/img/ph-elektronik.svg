@@ -1,19 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Ilustrasi pengganti foto: barang elektronik">
-    <defs>
-        <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
-            <circle cx="1.5" cy="1.5" r="1.5" fill="#d9dcd5" />
-        </pattern>
-    </defs>
-    <rect width="800" height="600" fill="#e9ebe5" />
-    <rect width="800" height="600" fill="url(#dots)" />
-    <g fill="none" stroke="#12161a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <rect width="800" height="600" fill="#F0F5FC" />
+    <g fill="none" stroke="#94A3B8" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
         <rect x="338" y="162" width="124" height="212" rx="18" />
         <path d="M380 182 L420 182" />
         <circle cx="400" cy="342" r="7" />
         <path d="M478 208 C510 248 510 288 478 328" />
         <path d="M508 186 C556 242 556 294 508 350" />
     </g>
-    <rect x="0" y="548" width="800" height="52" fill="#f6c90e" />
-    <text x="28" y="581" font-family="Bahnschrift, 'Segoe UI', sans-serif" font-size="19" font-weight="600" letter-spacing="1.6" fill="#12161a">FOTO BELUM ADA</text>
-    <text x="772" y="581" text-anchor="end" font-family="Bahnschrift, 'Segoe UI', sans-serif" font-size="19" font-weight="600" letter-spacing="1.6" fill="#12161a">ELEKTRONIK</text>
 </svg>

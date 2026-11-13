@@ -2,6 +2,10 @@
 declare(strict_types=1);
 
 /** Partial kartu laporan. Variabel: $r (baris laporan), $show_actions (opsional). */
+if (!isset($r) || !is_array($r)) {
+    return;
+}
+
 $showActions = isset($show_actions) ? (bool) $show_actions : false;
 $detailUrl   = 'laporan_detail.php?id=' . (int) $r['id'];
 $imageSrc    = image_url($r['image'] ?? null, (string) $r['category']);
@@ -13,7 +17,6 @@ $altText     = $hasPhoto
 <article class="tag-card">
     <a class="tag-photo" href="<?= e($detailUrl) ?>" aria-label="Buka detail laporan <?= e($r['title']) ?>">
         <img src="<?= e($imageSrc) ?>" alt="<?= e($altText) ?>" loading="lazy" width="800" height="600" />
-        <span class="tag-hole" aria-hidden="true"></span>
         <span class="tag-code"><?= e(report_code((string) $r['type'], (int) $r['id'])) ?></span>
     </a>
     <div class="tag-body">

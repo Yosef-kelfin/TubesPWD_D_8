@@ -1,6 +1,6 @@
 # FindIt
 
-Papan temuan kampus untuk melaporkan barang hilang dan barang ditemukan. Dibuat 100% native: XHTML, CSS, Vanilla JavaScript, PHP native. Versi ini **front-end only**: tidak memakai MySQL, data demo disimpan di `data/findit.json` (tanpa framework, library, atau CDN).
+Papan temuan kampus untuk melaporkan barang hilang dan barang ditemukan. Dibuat 100% native: XHTML, CSS, Vanilla JavaScript, PHP native. Versi ini **front-end only**: tidak memakai MySQL, data demo disimpan di `data/findit.json` (tanpa framework, library, atau CDN). Tampilan minimalis dengan palet biru–emas UAJY.
 
 ## Menjalankan
 
@@ -58,6 +58,6 @@ laporan_saya.php laporan_hapus.php laporan_status.php
 ## Catatan teknis
 
 - Markup ditulis well-formed sesuai aturan XHTML. Halaman dikirim sebagai `text/html` (fallback yang diizinkan PRD); ubah `APP_CONTENT_TYPE` di `includes/functions.php` menjadi `application/xhtml+xml` bila ingin mode ketat.
-- Data demo disimpan sebagai JSON di `data/findit.json` (di-seed otomatis dari `config/data.php`); folder `data/` diblokir dari akses browser lewat `.htaccess`. Semua output di-escape dengan `htmlspecialchars()`, form POST memakai token CSRF, dan kepemilikan laporan dicek di server.
+- Tipografi memakai Google Fonts (Space Grotesk untuk judul, Manrope untuk body) yang dimuat lewat CDN. Ini adalah pengecualian dari aturan "tanpa CDN" pada PRD untuk kebutuhan tipografi.
 - Upload divalidasi MIME asli (`finfo`), ekstensi, ukuran maksimal 2 MB, nama file acak, serta folder `uploads/` diblokir dari eksekusi skrip.
 - Login tetap memakai `password_hash()` / `password_verify()`, jadi akun demo dan akun hasil registrasi bisa dipakai seperti biasa tanpa MySQL.
