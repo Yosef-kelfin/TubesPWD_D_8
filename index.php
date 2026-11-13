@@ -79,6 +79,27 @@ require __DIR__ . '/includes/header.php';
 ?>
 
 <section class="hero">
+    <div class="hero-marquee" aria-hidden="true" role="presentation">
+        <div class="hero-marquee-track">
+            <?php
+            $marqueeImages = [
+                'assets/img/ph-tumbler.svg',
+                'assets/img/ph-pakaian_jaket.svg',
+                'assets/img/ph-elektronik.svg',
+                'assets/img/ph-dompet_kartu.svg',
+                'assets/img/ph-kunci.svg',
+                'assets/img/ph-lainnya.svg',
+            ];
+            for ($i = 0; $i < 2; $i++):
+                foreach ($marqueeImages as $img):
+            ?>
+                <img src="<?= e($img) ?>" alt="" loading="lazy" width="96" height="96" />
+            <?php
+                endforeach;
+            endfor;
+            ?>
+        </div>
+    </div>
     <div class="wrap hero-inner">
         <div class="hero-copy">
             <p class="plate">Papan temuan · Kampus UAJY</p>

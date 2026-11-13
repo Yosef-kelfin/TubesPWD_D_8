@@ -165,4 +165,41 @@
             }
         });
     });
+
+    /* ---------- Menu akun (pojok kanan) ---------- */
+    var userToggle = document.getElementById('user-menu-toggle');
+    var userMenu = document.getElementById('user-menu');
+
+    function closeUserMenu() {
+        if (!userToggle || !userMenu) {
+            return;
+        }
+        userToggle.setAttribute('aria-expanded', 'false');
+        userMenu.hidden = true;
+    }
+
+    if (userToggle && userMenu) {
+        userToggle.addEventListener('click', function (event) {
+            event.stopPropagation();
+            var open = userToggle.getAttribute('aria-expanded') === 'true';
+            userToggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+            userMenu.hidden = open;
+        });
+
+        document.addEventListener('click', function (event) {
+            if (userMenu.hidden) {
+                return;
+            }
+            if (!userMenu.contains(event.target) && !userToggle.contains(event.target)) {
+                closeUserMenu();
+            }
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && !userMenu.hidden) {
+                closeUserMenu();
+                userToggle.focus();
+            }
+        });
+    }
 })();

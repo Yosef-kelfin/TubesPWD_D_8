@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300" role="img" aria-label="Papan temuan masih kosong">
     <rect x="1" y="1" width="398" height="298" rx="6" fill="#FFFFFF" stroke="#E5E7EB" />
-    <rect x="172" y="1" width="56" height="8" fill="#0E79F1" />
-    <g fill="none" stroke="#0E79F1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="172" y="1" width="56" height="8" fill="#0a5896" />
+    <g fill="none" stroke="#0a5896" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
         <rect x="126" y="92" width="128" height="104" rx="6" />
         <path d="M148 122 L232 122" />
         <path d="M148 144 L212 144" />

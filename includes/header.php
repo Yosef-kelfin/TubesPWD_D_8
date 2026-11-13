@@ -28,7 +28,6 @@ $nav_items = [
     ['href' => 'index.php',        'label' => 'Beranda',       'key' => 'home'],
     ['href' => 'laporan_buat.php', 'label' => 'Buat Laporan',  'key' => 'buat'],
     ['href' => 'laporan_saya.php', 'label' => 'Laporan Saya',  'key' => 'saya'],
-    ['href' => 'profil.php',       'label' => 'Profil',        'key' => 'profil'],
 ];
 ?>
 <!DOCTYPE html>
@@ -36,7 +35,7 @@ $nav_items = [
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0B5CA8" />
+    <meta name="theme-color" content="#0a5896" />
     <title><?= $page_title !== '' ? e($page_title) . ' · ' . e(APP_NAME) : e(APP_NAME) . ' — ' . e(APP_TAGLINE) ?></title>
     <meta name="description" content="Papan temuan kampus FindIt!: laporan barang hilang dan ditemukan di lingkungan kampus." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -77,14 +76,23 @@ $nav_items = [
 
             <div class="head-actions">
                 <?php if ($user !== null) : ?>
-                    <a class="user-chip" href="profil.php" title="Buka profil <?= e($user['name']) ?>">
-                        <span class="user-initials" aria-hidden="true"><?= e($initials !== '' ? $initials : '?') ?></span>
-                        <span class="user-name"><?= e($user['name']) ?></span>
-                    </a>
-                    <form class="logout-form" method="post" action="logout.php">
-                        <?= csrf_field() ?>
-                        <button class="btn btn--ghost btn--sm" type="submit">Keluar</button>
-                    </form>
+                    <div class="user-menu-wrap">
+                        <button class="user-chip" type="button" id="user-menu-toggle"
+                            aria-expanded="false" aria-haspopup="true" aria-controls="user-menu"
+                            title="Buka menu akun">
+                            <span class="user-initials" aria-hidden="true"><?= e($initials !== '' ? $initials : '?') ?></span>
+                            <span class="user-name"><?= e($user['name']) ?></span>
+                            <span class="user-caret" aria-hidden="true">▾</span>
+                        </button>
+                        <div class="user-menu" id="user-menu" hidden>
+                            <a href="profil.php" role="menuitem">Profil</a>
+                            <a href="laporan_saya.php" role="menuitem">Laporan Saya</a>
+                            <form class="user-menu-logout" method="post" action="logout.php">
+                                <?= csrf_field() ?>
+                                <button type="submit" role="menuitem">Keluar</button>
+                            </form>
+                        </div>
+                    </div>
                 <?php else : ?>
                     <a class="btn btn--ghost btn--sm" href="login.php">Masuk</a>
                     <a class="btn btn--signal btn--sm" href="register.php">Daftar</a>
