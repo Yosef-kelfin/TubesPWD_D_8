@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Ilustrasi pengganti foto: pakaian atau jaket">
+    <defs>
+        <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
+            <circle cx="1.5" cy="1.5" r="1.5" fill="#d9dcd5" />
+        </pattern>
+    </defs>
+    <rect width="800" height="600" fill="#e9ebe5" />
+    <rect width="800" height="600" fill="url(#dots)" />
+    <g fill="none" stroke="#12161a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M312 226 L352 188 L378 204 L400 196 L422 204 L448 188 L488 226 L466 292 L452 280 L452 398 L348 398 L348 280 L334 292 Z" />
+        <path d="M378 204 C378 244 422 244 422 204" />
+        <path d="M400 222 L400 398" />
+    </g>
+    <rect x="0" y="548" width="800" height="52" fill="#f6c90e" />
+    <text x="28" y="581" font-family="Bahnschrift, 'Segoe UI', sans-serif" font-size="19" font-weight="600" letter-spacing="1.6" fill="#12161a">FOTO BELUM ADA</text>
+    <text x="772" y="581" text-anchor="end" font-family="Bahnschrift, 'Segoe UI', sans-serif" font-size="19" font-weight="600" letter-spacing="1.6" fill="#12161a">PAKAIAN/JAKET</text>
+</svg>

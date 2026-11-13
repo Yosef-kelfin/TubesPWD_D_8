@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Ilustrasi pengganti foto: kunci">
+    <defs>
+        <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
+            <circle cx="1.5" cy="1.5" r="1.5" fill="#d9dcd5" />
+        </pattern>
+    </defs>
+    <rect width="800" height="600" fill="#e9ebe5" />
+    <rect width="800" height="600" fill="url(#dots)" />
+    <g fill="none" stroke="#12161a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="342" cy="262" r="46" />
+        <path d="M388 262 L502 262" />
+        <path d="M462 262 L462 302" />
+        <path d="M502 262 L502 292" />
+    </g>
+    <rect x="0" y="548" width="800" height="52" fill="#f6c90e" />
+    <text x="28" y="581" font-family="Bahnschrift, 'Segoe UI', sans-serif" font-size="19" font-weight="600" letter-spacing="1.6" fill="#12161a">FOTO BELUM ADA</text>
+    <text x="772" y="581" text-anchor="end" font-family="Bahnschrift, 'Segoe UI', sans-serif" font-size="19" font-weight="600" letter-spacing="1.6" fill="#12161a">KUNCI</text>
+</svg>

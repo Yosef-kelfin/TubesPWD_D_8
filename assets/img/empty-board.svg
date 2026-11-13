@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300" role="img" aria-label="Papan temuan masih kosong">
+    <rect x="1" y="1" width="398" height="298" fill="#fdfdfb" stroke="#12161a" stroke-width="2" />
+    <g fill="#d9dcd5">
+        <circle cx="34" cy="34" r="3" /><circle cx="78" cy="34" r="3" /><circle cx="122" cy="34" r="3" /><circle cx="166" cy="34" r="3" />
+        <circle cx="210" cy="34" r="3" /><circle cx="254" cy="34" r="3" /><circle cx="298" cy="34" r="3" /><circle cx="342" cy="34" r="3" />
+        <circle cx="34" cy="78" r="3" /><circle cx="78" cy="78" r="3" /><circle cx="122" cy="78" r="3" /><circle cx="166" cy="78" r="3" />
+        <circle cx="210" cy="78" r="3" /><circle cx="254" cy="78" r="3" /><circle cx="298" cy="78" r="3" /><circle cx="342" cy="78" r="3" />
+    </g>
+    <path d="M200 74 L200 106 L186 122" fill="none" stroke="#12161a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+    <g transform="rotate(-4 200 166)">
+        <rect x="150" y="126" width="104" height="70" rx="4" fill="#f6c90e" stroke="#12161a" stroke-width="3" />
+        <circle cx="166" cy="142" r="5" fill="#fdfdfb" stroke="#12161a" stroke-width="3" />
+        <path d="M170 176 L234 176" stroke="#12161a" stroke-width="3" stroke-linecap="round" />
+        <path d="M170 162 L212 162" stroke="#12161a" stroke-width="3" stroke-linecap="round" />
+        <path d="M150 196 L254 196" stroke="#12161a" stroke-width="2" stroke-dasharray="4 5" />
+    </g>
+    <path d="M116 228 L284 228" stroke="#12161a" stroke-width="3" stroke-linecap="round" />
+    <path d="M116 228 L132 220 M116 228 L132 236" fill="none" stroke="#12161a" stroke-width="2" stroke-linecap="round" />
+    <path d="M284 228 L268 220 M284 228 L268 236" fill="none" stroke="#12161a" stroke-width="2" stroke-linecap="round" />
+</svg>
