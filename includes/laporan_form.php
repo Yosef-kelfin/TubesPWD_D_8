@@ -16,21 +16,21 @@ declare(strict_types=1);
  * @var string $cancel_url
  */
 $formDefaults = [
-    'type'             => 'hilang',
-    'title'            => '',
-    'category'         => '',
-    'location'         => '',
-    'date'             => date('Y-m-d'),
-    'description'      => '',
+    'type' => 'hilang',
+    'title' => '',
+    'category' => '',
+    'location' => '',
+    'date' => date('Y-m-d'),
+    'description' => '',
     'storage_location' => '',
 ];
 
-$form         = isset($form) && is_array($form) ? array_merge($formDefaults, $form) : $formDefaults;
-$errors       = isset($errors) && is_array($errors) ? $errors : [];
-$is_edit      = isset($is_edit) ? (bool) $is_edit : false;
-$form_action  = isset($form_action) ? (string) $form_action : 'laporan_buat.php';
+$form = isset($form) && is_array($form) ? array_merge($formDefaults, $form) : $formDefaults;
+$errors = isset($errors) && is_array($errors) ? $errors : [];
+$is_edit = isset($is_edit) ? (bool) $is_edit : false;
+$form_action = isset($form_action) ? (string) $form_action : 'laporan_buat.php';
 $current_image = isset($current_image) ? $current_image : null;
-$cancel_url   = isset($cancel_url) ? (string) $cancel_url : 'index.php';
+$cancel_url = isset($cancel_url) ? (string) $cancel_url : 'index.php';
 
 $isEdit = !empty($is_edit);
 $currentImage = isset($current_image) && $current_image !== null && $current_image !== ''
@@ -90,7 +90,8 @@ $errorCount = count($errors);
                 <option value="">Pilih kategori</option>
                 <?php foreach (CATEGORIES as $key => $label): ?>
                     <option value="<?= e($key) ?>" <?= $form['category'] === $key ? ' selected="selected"' : '' ?>>
-                        <?= e($label) ?></option>
+                        <?= e($label) ?>
+                    </option>
                 <?php endforeach; ?>
             </select>
             <?php if (isset($errors['category'])): ?>
